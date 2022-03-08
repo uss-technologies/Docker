@@ -90,3 +90,15 @@ networks:
 volumes:
   mongodb:
     driver: rexray/ebs
+    
+    Docker Compose Commands:-
+    docker-compose up -d
+    docker-compose down
+    docker-compose start
+    docker-compose restart
+    docker-compose rm containername
+    docker-compose create
+    docker-compose config
+    docker-compose ps
+    docker-compose image
+    docker-compose top
