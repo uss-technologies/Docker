@@ -1,0 +1,92 @@
+version: '3.5'
+services:
+  springapp:
+    image: springapp
+    ports:
+    - 9090:8080
+    environment:
+    - MONGO_DB_HOSTNAME: mongo
+    - MONGO_DB_USERNAME: prod
+    - MONGO_DB_PASSWORD: proddb@123
+    networks:
+    - springbridge
+    depends_on:
+    - mongo
+  mongo:
+    image: mongo
+    environment:
+    - MONGO_INITDB_ROOT_USERNAME: prod
+    - MONGO_INITDB_ROOT_PASSWORD: proddb@123
+    volumes:
+    - mongodb:/data/db
+    networks:
+    - springbridge
+networks:
+  springbridge:
+    driver: bridge
+volumes:
+  mongodb:
+    driver: local
+    
+    # For already created volume and network mention External
+    
+version: '3.5'
+services:
+  springapp:
+    image: springapp
+    ports:
+    - 9090:8080
+    environment:
+    - MONGO_DB_HOSTNAME: mongo
+    - MONGO_DB_USERNAME: prod
+    - MONGO_DB_PASSWORD: proddb@123
+    networks:
+    - springbridge
+    depends_on:
+    - mongo
+  mongo:
+    image: mongo
+    environment:
+    - MONGO_INITDB_ROOT_USERNAME: prod
+    - MONGO_INITDB_ROOT_PASSWORD: proddb@123
+    volumes:
+    - mongodb:/data/db
+    networks:
+    - springbridge
+networks:
+  springbridge:
+    external: true
+volumes:
+  mongodb:
+    external: true
+    
+ # Declare Persistent External Volumes
+ version: '3.5'
+services:
+  springapp:
+    image: springapp
+    ports:
+    - 9090:8080
+    environment:
+    - MONGO_DB_HOSTNAME: mongo
+    - MONGO_DB_USERNAME: prod
+    - MONGO_DB_PASSWORD: proddb@123
+    networks:
+    - springbridge
+    depends_on:
+    - mongo
+  mongo:
+    image: mongo
+    environment:
+    - MONGO_INITDB_ROOT_USERNAME: prod
+    - MONGO_INITDB_ROOT_PASSWORD: proddb@123
+    volumes:
+    - mongodb:/data/db
+    networks:
+    - springbridge
+networks:
+  springbridge:
+    driver: bridge
+volumes:
+  mongodb:
+    driver: rexray/ebs
