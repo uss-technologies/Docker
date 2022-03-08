@@ -1,0 +1,43 @@
+For Bind Mounts
+docker run -d --nmae <containerName> -e <Environment> -v <HostDirpath>:<ContainerDirpath> imagename
+docker run -d --name mongocontainer -e MONGO_INITDB_ROOT_USERNAME= proddb -e MONGO_INITDB_ROOT_PASSWORD= proddb@123 -v /home/ubuntu/mongodb:/data/db mongo
+For Persistent Local Volumes
+docker volume create mongodbvol
+docker run -d --name mongocontainer -e MONGO_INITDB_ROOT_USERNAME= proddb -e MONGO_INITDB_ROOT_PASSWORD= proddb@123 -v mongodbvol:/data/db mongo
+For Persistent External Volumes
+docker plugin install rexray/ebs EBS_ACCESSKEY=accesskey EBS_SECRETKEY=secretkey
+docker volume create -d rexray/ebs mongovol
+docker run -d --name mongocontainer -e MONGO_INITDB_ROOT_USERNAME= proddb -e MONGO_INITDB_ROOT_PASSWORD= proddb@123 -v mongovol:/data/db mongo
+
+Docker Volume Commands
+docker volume create
+docker volume inspect volumename
+docker volume prune
+docker volume rm volumename
+docker volume ls
+
+can it possible to unmount volume from running container??
+ ans: nor possible, you have to delete container then delete volume.
+ 
+ Networks:
+ Default Network-- Bridge network
+ Create Custom Bridge network
+ docker network create -d bridge networkname
+ docker network create -d bridge pythonbridge
+ docker network ls
+ docker network inspect networkname
+ docker network rm networkname
+ How to communicate container which are in different network??
+ Ans: docker network connect networkname containername
+      docker network disconnect networkname containername
+ docker run -d -p 8080:8080 --name containername --network networkname imagename
+ docker run -d -p 8080:8080 --name pythoncontainer --network pythonbridge dockerhub/python:latest
+ 
+ Networks:
+-----------
+1. Bridge Network
+      Local Bridge Network    driver-bridge
+      Custom Bridge Network
+ 2. Host Network
+ 3. None/Null Network     driver-null
+ 
